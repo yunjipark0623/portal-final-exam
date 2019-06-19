@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${headTitle}"></title>
+</head>
+<body>
+<form method="POST" accept-charset="UTF-8" enctype="multipart/form-data" action="#" th:action="@{/insertContent}" th:object="${board}">
+    <div>
+        <input type="text" placeholder="제목입력" id="title" name="title" th:text="${title}">
+        <br>
+        <input type="text" placeholder="내용입력" id="content" name="content" th:text="${content}">
+<!--        <input type="hidden" name="write_time" value = "2019-06-19 20:49:24">-->
+    </div>
+    <div>
+        <button type="submit" name="write">작성하기</button>
+    </div>
+</form>
+</body>
+</html>

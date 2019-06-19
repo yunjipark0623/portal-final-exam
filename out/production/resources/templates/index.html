@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+</head>
+<body>
+<div>
+    <a th:each="item: ${boardList}" th:href="@{'/content/' + ${item.getId()}}">
+        <div>
+            <div>
+                <span>게시글 아이디</span>
+                <span th:text="${item.getId()}"></span>
+            </div>
+            <div>
+                <span>게시글 제목</span>
+                <span th:text="${item.getTitle()}"></span>
+            </div>
+            <div>
+                <span>작성시간</span>
+                <span th:text="${item.getWriteTime()}"></span>
+            </div>
+        </div>
+    </a>
+    <a th:href="@{'/write'}">
+        <button>글쓰기</button>
+    </a>
+</div>
+</body>
+</html>
