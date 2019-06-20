@@ -4,28 +4,48 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${title}"></title>
+    <link href="https://fonts.googleapis.com/css?family=Jua|Lobster|Nanum+Gothic:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/index.css">
 </head>
 <body>
-<div>
-    <a th:each="item: ${boardList}" th:href="@{'/content/' + ${item.getId()}}">
-        <div>
-            <div>
-                <span>게시글 아이디</span>
-                <span th:text="${item.getId()}"></span>
+    <!-- 헤더 -->
+    <div id="mainHeader">
+        <header class="header">
+            It's Liit
+        </header>
+        <div class="navbar">
+            <div class="welcome">
+                <span class="user" th:text="${user}"></span>
+                <span>님 환영합니다!</span>
             </div>
-            <div>
-                <span>게시글 제목</span>
-                <span th:text="${item.getTitle()}"></span>
-            </div>
-            <div>
-                <span>작성시간</span>
-                <span th:text="${item.getWriteTime()}"></span>
+            <div class="logout">
+                <a th:href="@{'/logout'}">
+                    로그아웃
+                </a>
             </div>
         </div>
-    </a>
-    <a th:href="@{'/write'}">
-        <button>글쓰기</button>
-    </a>
-</div>
+    </div>
+
+    <div class="wrap">
+        <table id="mainBoard">
+            <tbody>
+            <tr class="board" th:each="item: ${boardList}">
+                <td class="id">
+                    <a th:href="@{'/content/' + ${item.getId()}}" th:text="${item.getId()}"></a>
+                </td>
+                <td class="title">
+                    <a th:href="@{'/content/' + ${item.getId()}}" th:text="${item.getTitle()}"></a>
+                </td>
+                <td class="writer" th:text="${item.getUser_id()}"></td>
+                <td class="time" th:text="${#dates.format(item.getWriteTime(), 'MM-dd HH:mm')}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <button class="write-btn">
+            <a th:href="@{'/write'}">
+                글쓰기
+            </a>
+        </button>
+    </div>
 </body>
 </html>

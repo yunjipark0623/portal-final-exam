@@ -12,9 +12,6 @@
 </head>
 
 <body>
-<!--<form th:action="@{/registration}" method="get">-->
-<!--    <button class="btn btn-md btn-warning btn-block" type="Submit">Go To Registration Page</button>-->
-<!--</form>-->
 
 <div class="container">
     <form th:action="@{/login}" method="POST" class="form-signin">
@@ -27,7 +24,7 @@
                id="password" name="password" class="form-control"/> <br/>
 
         <div align="center" th:if="${param.error}">
-            <p style="font-size: 20; color: #FF1C19;">Email or Password invalid, please verify</p>
+            <p style="font-size: 20; color: #FF1C19;">이메일이나 비밀번호가 유효하지 않습니다. 다시 한번 확인해 주세요.</p>
         </div>
         <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit"
                 th:text="로그인"></button>

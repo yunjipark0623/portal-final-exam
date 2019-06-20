@@ -2,12 +2,16 @@ package com.gpch.login.controller;
 
 import com.gpch.login.model.Board;
 import com.gpch.login.model.Comment;
+import com.gpch.login.model.User;
 import com.gpch.login.repository.BoardRepository;
 import com.gpch.login.repository.CommentRepository;
+import com.gpch.login.repository.UserRepository;
 import com.gpch.login.service.RepositoryService;
 import lombok.RequiredArgsConstructor;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,14 +27,19 @@ public class SampleController {
     private final RepositoryService repositoryService;
     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
+    private final UserRepository userRepository;
 
 //    첫 화면
     @GetMapping("/index")
-    public ModelAndView index() {
+    public ModelAndView index(Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("title", "첫 화면");
         List<Board> boardList = boardRepository.findAll();
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+//        List<User> userList = userRepository.findAll();
         modelAndView.addObject("boardList", boardList);
+//        modelAndView.addObject("userList", userList);
+        modelAndView.addObject("user", userDetails.getUsername());
         return modelAndView;
     }
 
@@ -44,6 +53,7 @@ public class SampleController {
         modelAndView.addObject("title", board.getTitle());
         modelAndView.addObject("content", board.getContent());
         modelAndView.addObject("writeTime", board.getWriteTime());
+        modelAndView.addObject("writer", board.getUser_id());
         modelAndView.addObject("list", commentList);
         return modelAndView;
     }
@@ -58,7 +68,10 @@ public class SampleController {
 
 //    게시글 날리기
     @PostMapping("/insertContent")
-    public String insertContent(@ModelAttribute Board board, Model model) {
+    public String insertContent(@ModelAttribute Board board, Model model, Authentication authentication) {
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+//        이렇게 받아온 사용자 정보를 어떻게 board한테 넘겨주지??
+        userDetails.getUsername();
         Board entity = repositoryService.addBoard(board);
         model.addAttribute(entity);
         return "redirect:/index";
