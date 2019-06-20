@@ -4,51 +4,102 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${headTitle}"></title>
+    <link href="https://fonts.googleapis.com/css?family=Jua|Lobster|Nanum+Gothic:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/content.css">
 </head>
 <body>
 
-<!-- 게시글 보기 -->
-<div>
-    <div>
-        <span>게시글 제목: </span>
-        <span th:text="${title}"></span>
+<!-- 헤더 -->
+<div id="mainHeader">
+    <header class="header">
+        <a th:href="@{'/index'}">It's Liit</a>
+    </header>
+    <div class="navbar">
+        <div class="welcome">
+            <span class="user" th:text="${user}"></span>
+            <span>님 환영합니다!</span>
+        </div>
+        <div class="logout">
+            <a th:href="@{'/logout'}">
+                로그아웃
+            </a>
+        </div>
     </div>
-    <div>
-        <span>게시글 내용: </span>
-        <span th:text="${content}"></span>
-    </div>
-    <div>
-        <span>게시글 작성시간: </span>
-        <span th:text="${writeTime}"></span>
-    </div>
-    <div>
-        <span>게시글 작성자: </span>
+</div>
+
+<!-- 게시물 보기 -->
+<div class="wrap">
+    <div class="title" th:text="${title}"></div>
+    <div class="details">
         <span th:text="${writer}"></span>
+        <span>|</span>
+        <span  th:text="${#dates.format(writeTime, 'MM-dd HH:mm')}">작성시간</span>
     </div>
-</div>
-<div class="list">
-    <a th:href="@{'/index'}">
-        <button id="btn_submit" name="write">목록</button>
-    </a>
+
+    <div class="content" th:text="${content}"></div>
+
+
+<!--  댓글 적기  -->
+    <div class="comment">
+        <form class="cmt-form" method="POST" accept-charset="UTF-8" th:action="@{/insertComment}" th:object="${comment}">
+            <input type="hidden" name="board_id" th:value="${board_id}">
+            <input type="text" class="cmt-wrt" name="wcontent" th:text="${wcontent}" placeholder="댓글을 입력해주세요.">
+            <button type="submit" class="cmt-smt" name="write">입력</button>
+        </form>
+    </div>
+
+
+<!--  댓글 보기  -->
+    <div class="comment-list" th:each="item: ${list}">
+        <div class="cmt-item">
+            <div class="cmt-details">
+                <span class="cmt-id" th:text="${item.getUser_id()}">작성자 이메일</span>
+                <span class="cmt-time" th:text="${#dates.format(item.getWriteTime(), 'MM-dd HH:mm')}">댓글 작성 시간</span>
+            </div>
+            <div class="cmt-content" th:text="${item.getContent()}">
+                댓글내용 댓글 내용 댓글 내용
+            </div>
+        </div>
+    </div>
 </div>
 
 
-<!-- 댓글 보기, 작성 -->
-<div class="comment">
-    <form id="commentForm" method="POST" accept-charset="UTF-8" action="#" th:action="@{/insertComment}" th:object="${comment}">
-        <input type="hidden" name="board_id" th:value="${board_id}">
-        <div class="write_comment">
-            <input id="wcomment" type="text" name="wcontent" th:text="${wcontent}" placeholder="댓글을 입력해주세요.">
-            <button id="wr_button" type="submit" name="write">입력</button>
-        </div>
-    </form>
-    <div th:each="item: ${list}" class="commentList">
-        <div class="eachComment">
-            <span class="commentId" th:text="${item.getId()}"></span>
-            <span class="commentContent" th:text="${item.getContent()}"></span>
-            <span class="commentTime" th:text="${#dates.format(item.getWriteTime(), 'MM-dd HH:mm')}"></span>
-        </div>
-    </div>
-</div>
+    <!-- 게시글 보기 -->
+<!--<div>-->
+<!--    <div>-->
+<!--        <span>게시글 제목: </span>-->
+<!--        <span th:text="${title}"></span>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <span>게시글 내용: </span>-->
+<!--        <span th:text="${content}"></span>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <span>게시글 작성시간: </span>-->
+<!--        <span th:text="${writeTime}"></span>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <span>게시글 작성자: </span>-->
+<!--        <span th:text="${writer}"></span>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; 댓글 보기, 작성 &ndash;&gt;-->
+<!--<div class="comment">-->
+<!--    <form id="commentForm" method="POST" accept-charset="UTF-8" action="#" th:action="@{/insertComment}" th:object="${comment}">-->
+<!--        <input type="hidden" name="board_id" th:value="${board_id}">-->
+<!--        <div class="write_comment">-->
+<!--            <input id="wcomment" type="text" name="wcontent" th:text="${wcontent}" placeholder="댓글을 입력해주세요.">-->
+<!--            <button id="wr_button" type="submit" name="write">입력</button>-->
+<!--        </div>-->
+<!--    </form>-->
+<!--    <div th:each="item: ${list}" class="commentList">-->
+<!--        <div class="eachComment">-->
+<!--            <span class="commentId" th:text="${item.getId()}"></span>-->
+<!--            <span class="commentContent" th:text="${item.getContent()}"></span>-->
+<!--            <span class="commentTime" th:text="${#dates.format(item.getWriteTime(), 'MM-dd HH:mm')}"></span>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 </body>
 </html>

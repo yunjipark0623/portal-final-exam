@@ -33,7 +33,7 @@ public class SampleController {
     @GetMapping("/index")
     public ModelAndView index(Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject("title", "첫 화면");
+        modelAndView.addObject("title", "It's Liit");
         List<Board> boardList = boardRepository.findAll();
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
 //        List<User> userList = userRepository.findAll();
@@ -45,11 +45,13 @@ public class SampleController {
 
 //    게시글 보기
     @GetMapping("/content/{board_id}")
-    public ModelAndView content(@PathVariable Integer board_id) {
+    public ModelAndView content(@PathVariable Integer board_id, Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView("content");
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
         Board board = boardRepository.findById(board_id).get();
         List<Comment> commentList = commentRepository.findAllByboardId(board_id);
         modelAndView.addObject("headTitle", "게시글 보기");
+        modelAndView.addObject("user", userDetails.getUsername());
         modelAndView.addObject("title", board.getTitle());
         modelAndView.addObject("content", board.getContent());
         modelAndView.addObject("writeTime", board.getWriteTime());
@@ -60,28 +62,37 @@ public class SampleController {
 
 //    게시글 쓰기
     @GetMapping("/write")
-    public ModelAndView write() {
+    public ModelAndView write(Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView("write");
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
         modelAndView.addObject("headTitle", "게시글 쓰기");
+        modelAndView.addObject("user", userDetails.getUsername());
         return modelAndView;
     }
 
 //    게시글 날리기
     @PostMapping("/insertContent")
-    public String insertContent(@ModelAttribute Board board, Model model, Authentication authentication) {
+    public String insertContent(Authentication authentication,
+                                String title, String content) {
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-//        이렇게 받아온 사용자 정보를 어떻게 board한테 넘겨주지??
-        userDetails.getUsername();
-        Board entity = repositoryService.addBoard(board);
-        model.addAttribute(entity);
+        Board board = Board.builder()
+                .title(title)
+                .content(content)
+                .user_id(userDetails.getUsername())
+                .build();
+        repositoryService.addBoard(board);
+//        Board entity = repositoryService.addBoard(board);
+//        model.addAttribute(entity);
         return "redirect:/index";
     }
 
 //    댓글 날리기
     @PostMapping("/insertComment")
-    public String insertComment(@RequestParam Integer board_id, String wcontent, Model model) {
+    public String insertComment(@RequestParam Integer board_id, String wcontent, Authentication authentication) {
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
         Comment comment = Comment.builder()
                 .content(wcontent)
+                .user_id(userDetails.getUsername())
                 .board(boardRepository.findById(board_id).get())
                 .build();
         repositoryService.addComment(comment);

@@ -4,18 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${headTitle}"></title>
+    <link href="https://fonts.googleapis.com/css?family=Jua|Lobster|Nanum+Gothic:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/write.css">
 </head>
 <body>
-<form method="POST" accept-charset="UTF-8" enctype="multipart/form-data" action="#" th:action="@{/insertContent}" th:object="${board}">
-    <div>
-        <input type="text" placeholder="제목입력" id="title" name="title" th:text="${title}">
-        <br>
-        <input type="text" placeholder="내용입력" id="content" name="content" th:text="${content}">
-<!--        <input type="hidden" name="write_time" value = "2019-06-19 20:49:24">-->
+<!-- 헤더 -->
+<div id="mainHeader">
+    <header class="header">
+        <a th:href="@{'/index'}">It's Liit</a>
+    </header>
+    <div class="navbar">
+        <div class="welcome">
+            <span class="user" th:text="${user}"></span>
+            <span>님 환영합니다!</span>
+        </div>
+        <div class="logout">
+            <a th:href="@{'/logout'}">
+                로그아웃
+            </a>
+        </div>
     </div>
-    <div>
-        <button type="submit" name="write">작성하기</button>
-    </div>
-</form>
+</div>
+
+
+<!-- 게시물 쓰기 -->
+<div class="wrap">
+    <form method="POST" accept-charset="UTF-8" enctype="multipart/form-data" action="#" th:action="@{/insertContent}" th:object="${board}">
+        <div class="title">
+            <input type="text" name="title" placeholder="제목을 적어주세요." th:text="${title}">
+        </div>
+        <div class="content">
+            <textarea name="content" placeholder="내용을 적어주세요" th:text="${content}"></textarea>
+        </div>
+        <div class="submit-btn">
+            <button type="submit" class="btn" name="write">
+                작성하기
+            </button>
+        </div>
+    </form>
+</div>
+
+
+<!--<form method="POST" accept-charset="UTF-8" enctype="multipart/form-data" action="#" th:action="@{/insertContent}" th:object="${board}">-->
+<!--    <div>-->
+<!--        <input type="text" placeholder="제목입력" id="title" name="title" th:text="${title}">-->
+<!--        <br>-->
+<!--        <input type="text" placeholder="내용입력" id="content" name="content" th:text="${content}">-->
+<!--&lt;!&ndash;        <input type="hidden" name="write_time" value = "2019-06-19 20:49:24">&ndash;&gt;-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <button type="submit" name="write">작성하기</button>-->
+<!--    </div>-->
+<!--</form>-->
 </body>
 </html>

@@ -56,81 +56,51 @@ body {
 }
 
 .wrap {
+    padding: 0 400px;
     padding-top: 135px;
-    padding-left: 300px;
-    padding-right: 300px;
     font-family: 'Nanum Gothic', sans-serif;
-}
-
-#mainBoard {
-    display: block;
-}
-
-tbody {
-    display: block;
-}
-
-.board {
-    height: 30px;
-    display: block;
-    padding: 0 20px;
-    border-bottom: 1px solid black;
-    margin-bottom: 15px;
-}
-
-.id {
-    text-align: center;
-    width: 30px;
+    display: flex;
+    flex-direction: column;
 }
 
 .title {
-    padding: 0 20px;
-    width: 600px;
-}
-
-.writer {
-    padding: 0 10px;
-    width: 200px;
-}
-
-.time {
-    text-align: center;
-    width: 150px;
-}
-
-.write-btn {
-    float: right;
-    background-color: #705FED;
-    border: 0;
-    width: 100px;
-    height: 35px;
-    font-size: 16px;
+    border: 1px solid gray;
     border-radius: 2px;
-    margin-bottom: 20px;
-    cursor: pointer;
-    font-family: 'Nanum Gothic', sans-serif;
+    margin-bottom: 15px;
 }
 
-.write-btn:hover {
-    font-weight: bold;
+.title > input {
+    width: 100%;
+    height: 40px;
+    font-size: 18px;
+    padding: 0 10px;
+    border: 0;
 }
 
-.write-btn > a {
-    text-decoration: none;
+.content > textarea {
+    width: 100%;
+    resize: none;
+    padding: 10px;
+    font-size: 18px;
+    height: 500px;
+}
+
+.submit-btn {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn {
+    border: 0;
+    background-color: #705FED;
+    width: 150px;
+    height: 40px;
+    border-radius: 3px;
+    font-size: 18px;
     color: #ffffff;
+    cursor: pointer;
 }
 
-.id > a {
-    text-decoration: none;
-    color: #000000;
-}
-
-.title > a {
-    text-decoration: none;
-    color: #000000;
-}
-
-.title > a:hover {
-    color: #705FED;
+.btn:hover {
     font-weight: bold;
 }
