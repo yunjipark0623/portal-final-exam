@@ -78,11 +78,19 @@ body {
     text-align: right;
 }
 
-.content {
+.blank {
     padding: 20px;
+    white-space: pre-wrap;
+    font-size: 18px;
+    margin: 0;
     height: 300px;
     border-bottom: 1px solid black;
 }
+
+/*.content {*/
+/*    height: 300px;*/
+/*    border-bottom: 1px solid black;*/
+/*}*/
 
 .comment {
     margin-top: 20px;

@@ -28,15 +28,15 @@
 </div>
 
 <!-- 게시물 보기 -->
-<div class="wrap">
-    <div class="title" th:text="${title}"></div>
+<div class="wrap" th:each="item: ${content}">
+    <div class="title" th:text="${item.getTitle()}"></div>
     <div class="details">
-        <span th:text="${writer}"></span>
+        <span th:text="${item.getUser_id()}"></span>
         <span>|</span>
-        <span  th:text="${#dates.format(writeTime, 'MM-dd HH:mm')}">작성시간</span>
+        <span  th:text="${#dates.format(item.getWriteTime(), 'MM-dd HH:mm')}">작성시간</span>
     </div>
+    <pre class="blank" th:text="${item.getContent()}"></pre>
 
-    <div class="content" th:text="${content}"></div>
 
 
 <!--  댓글 적기  -->

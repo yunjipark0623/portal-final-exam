@@ -5,6 +5,7 @@ import com.gpch.login.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,6 +57,33 @@ public class LoginController {
         }
         return modelAndView;
     }
+
+
+//    회원정보 수정 실패함,,
+//    @RequestMapping(value="/modify", method = RequestMethod.GET)
+//    public ModelAndView modify(Authentication authentication){
+//        ModelAndView modelAndView = new ModelAndView();
+//        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+//        modelAndView.addObject("user_id", userDetails.getUsername());
+//        User user = new User();
+//        modelAndView.addObject("user", user);
+//        modelAndView.setViewName("modify");
+//        return modelAndView;
+//    }
+//
+//    @RequestMapping(value = "/modify", method = RequestMethod.PUT)
+//    public ModelAndView updateUser(@Valid User user, BindingResult bindingResult) {
+//        ModelAndView modelAndView = new ModelAndView();
+//        if (bindingResult.hasErrors()) {
+//            modelAndView.setViewName("modify");
+//        } else {
+//            userService.saveUser(user);
+//            modelAndView.addObject("successMessage", "회원정보 수정하였습니다.");
+//            modelAndView.addObject("user", new User());
+//            modelAndView.setViewName("modify");
+//        }
+//        return modelAndView;
+//    }
 
 //    @RequestMapping(value="/admin/home", method = RequestMethod.GET)
 //    public ModelAndView home(){

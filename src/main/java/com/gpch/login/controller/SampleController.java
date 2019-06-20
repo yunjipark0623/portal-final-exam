@@ -52,10 +52,11 @@ public class SampleController {
         List<Comment> commentList = commentRepository.findAllByboardId(board_id);
         modelAndView.addObject("headTitle", "게시글 보기");
         modelAndView.addObject("user", userDetails.getUsername());
-        modelAndView.addObject("title", board.getTitle());
-        modelAndView.addObject("content", board.getContent());
-        modelAndView.addObject("writeTime", board.getWriteTime());
-        modelAndView.addObject("writer", board.getUser_id());
+        modelAndView.addObject("content", board);
+//        modelAndView.addObject("title", board.getTitle());
+//        modelAndView.addObject("content", board.getContent());
+//        modelAndView.addObject("writeTime", board.getWriteTime());
+//        modelAndView.addObject("writer", board.getUser_id());
         modelAndView.addObject("list", commentList);
         return modelAndView;
     }
